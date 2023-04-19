@@ -1,9 +1,11 @@
-/**
- * @format
- */
-
-import {AppRegistry} from 'react-native';
-import App from './App';
+import React from 'react';
+import {AppRegistry, LogBox} from 'react-native';
 import {name as appName} from './app.json';
+import App from './app/app';
 
-AppRegistry.registerComponent(appName, () => App);
+LogBox.ignoreAllLogs();
+const RN_Boilerplate = () => {
+  return <App />;
+};
+
+AppRegistry.registerComponent(appName, () => RN_Boilerplate);
