@@ -7,12 +7,7 @@ export const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <TouchableHighlight
-        style={{
-          backgroundColor: 'red',
-          paddingHorizontal: 20,
-          paddingVertical: 10,
-          borderRadius: 5,
-        }}
+        style={styles.button}
         onPress={async () => {
           try {
             await saveString('token', 'Accesstoken');
@@ -33,5 +28,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'red',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
   },
 });
