@@ -1,6 +1,14 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
+// TODO: Setting .env
+project.ext.envConfigFiles = [
+    development: ".env",
+    dev: ".env.dev",
+    stg: ".env.stg",
+    product: ".env.prod",
+]
+
 import com.android.build.OutputFile
 
 /**
@@ -92,6 +100,36 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
+
+    flavorDimensions "env"
+
+    // TODO: Rename app_name when change here or build_config_package & comment app_name at path main/res/values
+    productFlavors {
+        dev {
+            dimension "env"
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".dev"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "app_name", "rn_boilerplate"
+            resValue "string", "build_config_package", "com.rn_boilerplate"
+        }
+        stg {
+            dimension "env"
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".stg"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "app_name", "rn_boilerplate"
+            resValue "string", "build_config_package", "com.rn_boilerplate"
+        }
+        prod {
+            dimension "env"
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".prod"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "app_name", "rn_boilerplate"
+            resValue "string", "build_config_package", "com.rn_boilerplate"
+        }
+    }
 
     namespace "com.rn_boilerplate"
     defaultConfig {

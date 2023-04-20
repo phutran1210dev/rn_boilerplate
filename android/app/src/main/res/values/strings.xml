@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">rn_boilerplate</string>
+    <!-- TODO: Open comment if don't need config .env -->
+    <!-- <string name="app_name">rn_boilerplate</string> -->
 </resources>
