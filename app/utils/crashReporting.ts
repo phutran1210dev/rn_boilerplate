@@ -45,17 +45,16 @@ export enum ErrorType {
  */
 export const reportCrash = (error: any, type: ErrorType = ErrorType.FATAL) => {
   if (__DEV__) {
-    // Log to console and Reactotron in development
+    // Log to console in development
     const message = error.message || 'Unknown';
     console.error(error);
     console.log(message, type);
     console.log(error);
   } else {
     // In production, utilize crash reporting service of choice below:
-    // RN
     Sentry.captureException(error);
-    // Expo
-    // Sentry.Native.captureException(error)
+    console.log('Sentry error', Sentry.captureException(error));
+    // Sentry.captureException(error)
     // crashlytics().recordError(error)
     // Bugsnag.notify(error)
   }

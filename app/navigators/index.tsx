@@ -8,17 +8,16 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {StackScreenProps} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
-import Config from 'react-native-config';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
-import '../utils/ignoreWarnings';
-import {screens} from '../constants';
-import {HomeScreen} from '../screens';
-import {LoginScreen, RegisterScreen} from '../screens/Auth';
-import {navigationRef, saveString, useBackButtonHandler} from '../utils';
+import '@utils/ignoreWarnings';
+import {screens} from '@constants';
+import {navigationRef, saveString, useBackButtonHandler} from '@utils';
+import {HomeScreen, LoginScreen, RegisterScreen} from '@screens';
+import Config from '@config';
 
 export type RootStackParamList = {
   [screens.loginScreen]: undefined;
@@ -96,7 +95,7 @@ const AppNavigator = (props: NavigationProps) => {
           ref={navigationRef}
           theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
           {...props}
-          onReady={() => RNBootSplash.hide({fade: true, duration: 2000})}>
+          onReady={() => RNBootSplash.hide({fade: true, duration: 1000})}>
           {RootStackScreen}
         </NavigationContainer>
       </SafeAreaProvider>

@@ -1,24 +1,10 @@
-import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
-import {TouchableHighlight} from 'react-native-gesture-handler';
-import {loadString, saveString} from '../../utils';
+import {View, Text, StyleSheet} from 'react-native';
 
 export const HomeScreen = () => {
   return (
     <View style={styles.container}>
-      <TouchableHighlight
-        style={styles.button}
-        onPress={async () => {
-          try {
-            await saveString('token', 'Accesstoken');
-            const token = await loadString('token');
-            console.log('🚀 ~ store:', token);
-          } catch (error) {
-            console.log('eror: ', error);
-          }
-        }}>
-        <Text>Click me</Text>
-      </TouchableHighlight>
+      <Text>Home Screen</Text>
     </View>
   );
 };

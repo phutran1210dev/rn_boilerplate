@@ -2,22 +2,47 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "react-native",
     "lib": [
-      "es6"
+      "es6",
+      "dom"
     ],
+    "module": "es2015",
     "moduleResolution": "node",
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
     "noEmit": true,
+    "sourceMap": false,
     "strict": false,
     "target": "esnext",
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components": ["./app/components",],
+      "@screens":["./app/screens"],
+      "@utils": ["./app/utils"],
+      "@constants":["./app/constants"],
+      "@config": ["./app/config"]
+    },
   },
   "types": [
     "node"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
+  "include": [
+    "src/**/*", // include all files in the src directory
+    "index.js",
+    "App.js",
+    "app/**/*.ts",
+    "test",
+    "types/declarations.d.ts"
+  ],
 }
