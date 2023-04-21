@@ -84,7 +84,7 @@ const useAuthNavigator = () => {
   );
 };
 
-const AppNavigator = (props: NavigationProps) => {
+export const AppNavigator = (props: NavigationProps) => {
   const colorScheme = useColorScheme();
   const RootStackScreen = useAuthNavigator();
   useBackButtonHandler(routeName => exitRoutes.includes(routeName));
@@ -113,5 +113,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export default AppNavigator;

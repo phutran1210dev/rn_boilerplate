@@ -2,8 +2,8 @@ import React from 'react';
 import {AppRegistry, LogBox} from 'react-native';
 import {Provider} from 'react-redux';
 import {name as appName} from './app.json';
-import AppNavigator from './app/navigators';
-import store from './app/redux';
+import {AppNavigator} from '@navigators';
+import store from '@store';
 
 LogBox.ignoreAllLogs();
 const RN_Boilerplate = ({isHeadless}) => {

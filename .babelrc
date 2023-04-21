@@ -7,11 +7,14 @@
           "."
         ],
         "alias": {
+          "@assets": "./assets",
           "@components": "./app/components",
           "@screens": "./app/screens",
           "@utils": "./app/utils",
           "@constants": "./app/constants",
-          "@config": "./app/config"
+          "@config": "./app/config",
+          "@store": "./app/store",
+          "@navigators": "./app/navigators"
         }
       }
     ]
