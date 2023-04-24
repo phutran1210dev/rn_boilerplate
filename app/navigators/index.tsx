@@ -19,23 +19,20 @@ import {navigationRef, saveString, useBackButtonHandler} from '@utils';
 import {HomeScreen, LoginScreen, RegisterScreen} from '@screens';
 import Config from '@config';
 
-export type RootStackParamList = {
+export type AppStackParamList = {
   [screens.loginScreen]: undefined;
   [screens.registerScreen]: undefined;
   [screens.tabBarBottom]: undefined;
   [screens.homeScreen]: undefined;
 };
 
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
-  StackScreenProps<RootStackParamList, T>;
-
-interface NavigationProps
-  extends Partial<ComponentProps<typeof NavigationContainer>> {}
+export type AppStackScreenProps<T extends keyof AppStackParamList> =
+  StackScreenProps<AppStackParamList, T>;
+const exitRoutes = Config.exitRoutes;
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
-const exitRoutes = Config.exitRoutes;
 const useAuthNavigator = () => {
   const [isLoading, setLoading] = useState<boolean>(true);
 
@@ -83,6 +80,9 @@ const useAuthNavigator = () => {
     </Stack.Navigator>
   );
 };
+
+interface NavigationProps
+  extends Partial<ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = (props: NavigationProps) => {
   const colorScheme = useColorScheme();

@@ -25,10 +25,10 @@
     "baseUrl": "./",
     "paths": {
       "@assets": ["./assets"],
-      "@components": ["./app/components",],
-      "@screens":["./app/screens"],
+      "@components": ["./app/components"],
+      "@screens": ["./app/screens"],
       "@utils": ["./app/utils"],
-      "@constants":["./app/constants"],
+      "@constants": ["./app/constants"],
       "@config": ["./app/config"],
       "@store": ["./app/store"],
       "@navigators": ["./app/navigators"]
@@ -45,6 +45,7 @@
     "index.js",
     "App.js",
     "app/**/*.ts",
+    "app/**/*.tsx",
     "test",
     "types/declarations.d.ts"
   ],

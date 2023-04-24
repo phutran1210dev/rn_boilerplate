@@ -1,5 +1,5 @@
-import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
 
 export const HomeScreen = () => {
   return (
@@ -14,11 +14,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  button: {
-    backgroundColor: 'red',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 5,
   },
 });
