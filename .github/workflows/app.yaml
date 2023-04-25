@@ -1,12 +1,12 @@
-name: SantokuApp
+name: rn_boilerplate
 
 on:
-  push:
+  workflow_dispatch:
     branches:
-      - '*'
+      - "master"
   pull_request:
     branches:
-      - '*'
+      - "master"
     paths:
       - example-app/SantokuApp/**/*.js
       - example-app/SantokuApp/**/*.jsx
@@ -47,7 +47,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16.18.0'
+          node-version: "16.18.0"
 
       # Cache '.npm' to speed up clean-install when package-lock.json is updated.
       # Loosened up the restore-keys a bit, as it doesn't have to match the contents of package-lock.json exactly.
@@ -57,9 +57,9 @@ jobs:
         with:
           path: ~/.npm
           # If cache is corrupted, increment prefixed number.
-          key: 1-${{ runner.os }}-SantokuApp-npm-${{ hashFiles('example-app/SantokuApp/**/package-lock.json') }}
+          key: 1-${{ runner.os }}-rn_boilerplate-npm-${{ hashFiles('./**/package-lock.json') }}
           restore-keys: |
-            1-${{ runner.os }}-SantokuApp-npm-
+            1-${{ runner.os }}-rn_boilerplate-npm-
 
       # If package-lock.json matches, node_modules will also match.
       # So, cache node_modules directly to skip install step.
@@ -67,14 +67,14 @@ jobs:
         id: cache-node-modules
         uses: actions/cache@v3
         with:
-          path: example-app/SantokuApp/node_modules
+          path: ./node_modules
           # If cache is corrupted, increment prefixed number.
-          key: 1-${{ runner.os }}-SantokuApp-node-modules-${{ hashFiles('example-app/SantokuApp/**/package-lock.json') }}
+          key: 1-${{ runner.os }}-rn_boilerplate-node-modules-${{ hashFiles('./**/package-lock.json') }}
 
       - name: Install dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: |
-          npm clean-install --prefix example-app/SantokuApp 2>&1 | tee /dev/stderr | test $(grep --count -E '(Error:|gyp ERR!)') -le 0
+          npm clean-install --prefix ./ 2>&1 | tee /dev/stderr | test $(grep --count -E '(Error:|gyp ERR!)') -le 0
 
       - name: Set up reviewdog
         uses: reviewdog/action-setup@v1
@@ -83,17 +83,17 @@ jobs:
 
       - name: Lint (ESLint)
         run: |
-          cd example-app/SantokuApp && npm run -s lint:es -- -f eslint-formatter-rdjson | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=rdjson -name="ESLint (SantokuApp)"
+          npm run -s lint:es -- -f eslint-formatter-rdjson | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=rdjson -name="ESLint (rn_boilerplate)"
 
       - name: Lint (TypeScript)
         if: always()
         run: |
-          cd example-app/SantokuApp && npm run -s lint:tsc | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=tsc -name="TypeScript (SantokuApp)"
+          npm run -s lint:tsc | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=tsc -name="TypeScript (rn_boilerplate)"
 
       - name: Test
         if: always()
         run: |
-          npm run -s test --prefix example-app/SantokuApp -- --ci --reporters=default --reporters=jest-junit --coverage
+          npm run -s test --prefix ./ -- --ci --reporters=default --reporters=jest-junit --coverage
 
       - name: Archive workflow results
         uses: actions/upload-artifact@v3
@@ -101,4 +101,4 @@ jobs:
         with:
           name: workflow-results
           path: |
-            example-app/SantokuApp/jest-junit.xml
+            ./jest-junit.xml
