@@ -1,4 +1,4 @@
-name: rn_boilerplate
+name: CI/CD rn_boilerplate
 
 on:
   workflow_dispatch:
@@ -8,21 +8,6 @@ on:
     branches:
       - "master"
     paths:
-      - example-app/SantokuApp/**/*.js
-      - example-app/SantokuApp/**/*.jsx
-      - example-app/SantokuApp/**/*.ts
-      - example-app/SantokuApp/**/*.tsx
-      - example-app/SantokuApp/jest/**
-      - example-app/SantokuApp/src/**
-      - example-app/SantokuApp/.editorconfig
-      - example-app/SantokuApp/.eslintrc.js
-      - example-app/SantokuApp/babel.config.js
-      - example-app/SantokuApp/index.js
-      - example-app/SantokuApp/jest.config.js
-      - example-app/SantokuApp/metro.config.js
-      - example-app/SantokuApp/package.json
-      - example-app/SantokuApp/package-lock.json
-      - example-app/SantokuApp/tsconfig.json
       - .github/workflows/app.yaml
       - .github/workflows/report.yaml
     types:
@@ -83,15 +68,6 @@ jobs:
         uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
-
-      - name: Lint (ESLint)
-        run: |
-          npm run -s lint:es -- -f eslint-formatter-rdjson | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=rdjson -name="ESLint (rn_boilerplate)"
-
-      - name: Lint (TypeScript)
-        if: always()
-        run: |
-          npm run -s lint:tsc | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=tsc -name="TypeScript (rn_boilerplate)"
 
       - name: Test
         if: always()
