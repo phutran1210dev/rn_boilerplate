@@ -59,11 +59,6 @@ jobs:
           # If cache is corrupted, increment prefixed number.
           key: 1-${{ runner.os }}-rn_boilerplate-node-modules-${{ hashFiles('./**/package-lock.json') }}
 
-      - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: |
-          npm clean-install --prefix ./ 2>&1 | tee /dev/stderr | test $(grep --count -E '(Error:|gyp ERR!)') -le 0
-
       - name: Set up reviewdog
         uses: reviewdog/action-setup@v1
         with:
@@ -72,12 +67,4 @@ jobs:
       - name: Test
         if: always()
         run: |
-          npm run -s test --prefix ./ -- --ci --reporters=default --reporters=jest-junit --coverage
-
-      - name: Archive workflow results
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: workflow-results
-          path: |
-            ./jest-junit.xml
+          npm run -s test

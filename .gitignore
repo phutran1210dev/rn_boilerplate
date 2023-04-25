@@ -59,6 +59,9 @@ package-lock.json
 **/fastlane/screenshots
 **/fastlane/test_output
 
+# coverage Test
+/coverage
+
 # Bundle artifact
 *.jsbundle
 
