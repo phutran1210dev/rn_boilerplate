@@ -1,0 +1,62 @@
+import "Fastfile.build_rn_boilerplate_app_ios"
+import "Fastfile.prebuild_rn_boilerplate_app_ios"
+import "Fastfile.prebuild_rn_boilerplate_app_android"
+
+################################################################################
+# Notes on Deploying to DeployGate
+# Android App Bundle
+# There are some limitations to DeployGate's support for Android App Bundles, but since it is necessary to release in aabb format to Google Play,
+# aabb format will also be used for uploading to DeployGate.
+# https://intercom.help/deploygate/en/articles/4536522
+# - The target app (in APK format) must have been uploaded in advance and the upload key must be set.
+# - Features specific to App Bundles such as Dynamic Delivery do not work.
+# - It does not support distributing optimized APKS for devices.
+################################################################################
+
+platform :ios do
+
+  desc "Prebuild rn_boilerplate Production Release"
+  lane :prebuild_prod do
+    prebuild_rn_boilerplate_app_ios(environment: "prod")
+  end
+
+  desc "Prebuild rn_boilerplate Staging Release"
+  lane :prebuild_stg do
+    prebuild_rn_boilerplate_app_ios(environment: "stg")
+  end
+
+  desc "Build rn_boilerplate Production Release"
+  lane :build_prod do
+    prebuild_rn_boilerplate_app_ios(environment: "prod")
+  end
+
+  desc "Build rn_boilerplate Staging Release"
+  lane :build_stg do
+    prebuild_rn_boilerplate_app_ios(environment: "stg")
+  end
+
+end
+
+platform :android do
+
+  desc "Prebuild rn_boilerplate Production Release"
+  lane :prebuild_prod do
+    prebuild_rn_boilerplate_app_android(environment: "prod")
+  end
+
+  desc "Prebuild rn_boilerplate Staging Release"
+  lane :prebuild_stg do
+    prebuild_rn_boilerplate_app_android(environment: "stg")
+  end
+
+  desc "Build rn_boilerplate Production Release"
+  lane :build_prod do
+    build_android_app(task: "bundle", build_type: "Release", project_dir: "android")
+  end
+
+  desc "Build rn_boilerplate Staging Release"
+  lane :build_stg do
+    build_android_app(task: "bundle", build_type: "Release", project_dir: "android")
+  end
+
+end

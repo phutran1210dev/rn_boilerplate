@@ -1,0 +1,49 @@
+# Add 'iOS' label to any change within the 'ios' directory
+iOS:
+  - rn_boilerplate/ios/**/*
+
+# Add 'Android' label to any change within the 'android' directory
+Android:
+  - rn_boilerplate/android/**/*
+
+# Add 'app' label to any change within the 'src' directory and to the files listed below
+app:
+  - rn_boilerplate/src/**/*
+  - rn_boilerplate/index.js
+
+# Add 'build' label to any changes to the files listed below
+build:
+  - rn_boilerplate/.script/**/*
+  - rn_boilerplate/.buckconfig
+  - rn_boilerplate/.editorconfig
+  - rn_boilerplate/.eslintrc.js
+  - rn_boilerplate/babel.config.js
+  - rn_boilerplate/.babelrc
+  - rn_boilerplate/metro.config.js
+  - rn_boilerplate/package.json
+  - rn_boilerplate/package-lock.json
+  - rn_boilerplate/tsconfig.json
+  - .tool-versions
+
+# Add 'chore' label to any change within the '.github' directory and to the files listed below
+chore:
+  # Changes to files within '.github/workflows' should correspond to the 'ci' label
+  - any: ['.github/**/*', '!.github/workflows/**/*']
+  - .idea/**/*
+  - rn_boilerplate/.gitattributes
+  - rn_boilerplate/.gitignore
+  - .editorconfig
+  - .gitattributes
+  - .gitignore
+  - .tool-versions
+  - LICENSE
+
+# Add 'ci' label to any change within the '.github/workflows' directory
+ci:
+  - .github/workflows/**/*
+
+# Add 'test' label to any change to files within the directories listed below
+test:
+  - rn_boilerplate/jest/**/*
+  - rn_boilerplate/jest.config.js
+  - rn_boilerplate/src/**/*.test.tsx

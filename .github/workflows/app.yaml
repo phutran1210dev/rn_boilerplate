@@ -1,0 +1,104 @@
+name: SantokuApp
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - example-app/SantokuApp/**/*.js
+      - example-app/SantokuApp/**/*.jsx
+      - example-app/SantokuApp/**/*.ts
+      - example-app/SantokuApp/**/*.tsx
+      - example-app/SantokuApp/jest/**
+      - example-app/SantokuApp/src/**
+      - example-app/SantokuApp/.editorconfig
+      - example-app/SantokuApp/.eslintrc.js
+      - example-app/SantokuApp/babel.config.js
+      - example-app/SantokuApp/index.js
+      - example-app/SantokuApp/jest.config.js
+      - example-app/SantokuApp/metro.config.js
+      - example-app/SantokuApp/package.json
+      - example-app/SantokuApp/package-lock.json
+      - example-app/SantokuApp/tsconfig.json
+      - .github/workflows/app.yaml
+      - .github/workflows/report.yaml
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  lint-and-test:
+    name: Lints, Tests
+    # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-12-Readme.md
+    runs-on: macos-12
+    env:
+      REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.18.0'
+
+      # Cache '.npm' to speed up clean-install when package-lock.json is updated.
+      # Loosened up the restore-keys a bit, as it doesn't have to match the contents of package-lock.json exactly.
+      - name: Cache .npm
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          # If cache is corrupted, increment prefixed number.
+          key: 1-${{ runner.os }}-SantokuApp-npm-${{ hashFiles('example-app/SantokuApp/**/package-lock.json') }}
+          restore-keys: |
+            1-${{ runner.os }}-SantokuApp-npm-
+
+      # If package-lock.json matches, node_modules will also match.
+      # So, cache node_modules directly to skip install step.
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: example-app/SantokuApp/node_modules
+          # If cache is corrupted, increment prefixed number.
+          key: 1-${{ runner.os }}-SantokuApp-node-modules-${{ hashFiles('example-app/SantokuApp/**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
+        run: |
+          npm clean-install --prefix example-app/SantokuApp 2>&1 | tee /dev/stderr | test $(grep --count -E '(Error:|gyp ERR!)') -le 0
+
+      - name: Set up reviewdog
+        uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Lint (ESLint)
+        run: |
+          cd example-app/SantokuApp && npm run -s lint:es -- -f eslint-formatter-rdjson | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=rdjson -name="ESLint (SantokuApp)"
+
+      - name: Lint (TypeScript)
+        if: always()
+        run: |
+          cd example-app/SantokuApp && npm run -s lint:tsc | reviewdog -tee -fail-on-error -reporter=github-check -filter-mode=nofilter -f=tsc -name="TypeScript (SantokuApp)"
+
+      - name: Test
+        if: always()
+        run: |
+          npm run -s test --prefix example-app/SantokuApp -- --ci --reporters=default --reporters=jest-junit --coverage
+
+      - name: Archive workflow results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: workflow-results
+          path: |
+            example-app/SantokuApp/jest-junit.xml

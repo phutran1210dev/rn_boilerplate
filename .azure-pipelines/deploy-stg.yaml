@@ -1,0 +1,18 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - '*'
+  drafts: false
+
+name: $(date:yyyyMMdd)$(rev:.rr)
+
+extends:
+  template: deploy.yaml
+  parameters:
+    environments:
+      - name: 'stg'
+        laneName: 'stg'
+        androidAppPath: 'android/app/build/outputs/bundle/release/app-release.aab'
+        iOSAppPath: 'ios/build/rn_boilerplate.ipa'

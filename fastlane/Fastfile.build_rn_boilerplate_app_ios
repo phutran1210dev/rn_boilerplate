@@ -1,0 +1,64 @@
+# https://docs.fastlane.tools/actions/build_app/
+
+bundle_identifier_base = "rn.boilerplate.app"
+
+provisioning_profiles = {
+  "#{bundle_identifier_base}" => "rn_boilerplateApp AppStore Distribution",
+  "#{bundle_identifier_base}.stg" => "rn_boilerplateApp Stg Distribution",
+}
+
+environment_options = {
+  dev: {
+    scheme: "dev",
+    configuration: "Release",
+    workspace: "ios/rn.boilerplate.app.xcworkspace",
+    export_options: {
+      method: "enterprise",
+      provisioningProfiles: provisioning_profiles,
+    }
+  },
+  stg: {
+    scheme: "stg",
+    configuration: "Release",
+    workspace: "ios/rn.boilerplate.app.xcworkspace",
+    export_options: {
+      method: "enterprise",
+      provisioningProfiles: provisioning_profiles,
+    }
+  },
+  prod: {
+    scheme: "prod",
+    configuration: "Release",
+    workspace: "ios/rn.boilerplate.app.xcworkspace",
+    export_options: {
+      method: "app-store",
+      provisioningProfiles: provisioning_profiles,
+    }
+  },
+}
+
+private_lane :build_rn_boilerplate_app_ios do |options|
+  # Install dependent packages of CocoaPods.
+  # https://docs.fastlane.tools/actions/cocoapods/
+  cocoapods(
+    repo_update: true,
+    podfile: "ios/Podfile",
+    # In a CI environment, the project name may change, causing a difference in Podfile.lock
+    deployment: false,
+    silent: false,
+  )
+
+  environment = options[:environment]
+  env_options = environment_options[environment.to_sym]
+
+  build_ios_app({
+                  workspace: env_options[:workspace],
+                  scheme: env_options[:scheme],
+                  configuration: env_options[:configuration],
+                  output_directory: "ios/build",
+                  output_name: "rn_boilerplateApp-#{environment}.ipa",
+                  export_options: env_options[:export_options],
+                  silent: false,
+                  suppress_xcode_output: false,
+                })
+end

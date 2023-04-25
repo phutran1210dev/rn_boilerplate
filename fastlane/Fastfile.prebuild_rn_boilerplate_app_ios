@@ -1,0 +1,5 @@
+private_lane :prebuild_rn_boilerplate_app_ios do |options|
+  environment = options[:environment]
+  # https://docs.fastlane.tools/actions/sh/
+  sh("npm run prebuild:#{environment} -- -p ios")
+end
