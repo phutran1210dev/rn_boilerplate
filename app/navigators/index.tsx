@@ -1,12 +1,15 @@
-import React, {ComponentProps, useEffect, useState} from 'react';
 import {StyleSheet, Text, View, useColorScheme} from 'react-native';
+import React, {ComponentProps, useEffect, useState} from 'react';
 import {
   DarkTheme,
   DefaultTheme,
   NavigationContainer,
+  RouteProp,
 } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {StackScreenProps} from '@react-navigation/stack';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import RNBootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
@@ -18,6 +21,7 @@ import {screens} from '@constants';
 import {navigationRef, saveString, useBackButtonHandler} from '@utils';
 import {HomeScreen, LoginScreen, RegisterScreen} from '@screens';
 import Config from '@config';
+import {TabBottom} from './TabBottom';
 
 export type AppStackParamList = {
   [screens.loginScreen]: undefined;
@@ -26,12 +30,23 @@ export type AppStackParamList = {
   [screens.homeScreen]: undefined;
 };
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> =
-  StackScreenProps<AppStackParamList, T>;
-const exitRoutes = Config.exitRoutes;
+export type AppStackNavigationProp<RouteName extends keyof AppStackParamList> =
+  NativeStackNavigationProp<AppStackParamList, RouteName>;
+
+export type AppNavigations = {
+  [RouteName in keyof AppStackParamList]: AppStackNavigationProp<RouteName>;
+};
+
+export type AppStackRoutes = {
+  [RouteName in keyof AppStackParamList]: RouteProp<
+    AppStackParamList,
+    RouteName
+  >;
+};
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>();
+const exitRoutes = Config.exitRoutes;
 
 const useAuthNavigator = () => {
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -67,7 +82,7 @@ const useAuthNavigator = () => {
   if (!false) {
     return (
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        {/* <Stack.Screen name={screens.tabBottom} component={TabBarBottom} /> */}
+        <Stack.Screen name={screens.tabBarBottom} component={TabBottom} />
         <Stack.Screen name={screens.homeScreen} component={HomeScreen} />
       </Stack.Navigator>
     );
