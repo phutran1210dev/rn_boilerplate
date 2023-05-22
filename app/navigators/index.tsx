@@ -19,7 +19,7 @@ import {
 import '@utils/ignoreWarnings';
 import {screens} from '@constants';
 import {navigationRef, saveString, useBackButtonHandler} from '@utils';
-import {HomeScreen, LoginScreen, RegisterScreen} from '@screens';
+import {LoginScreen, RegisterScreen} from '@screens';
 import Config from '@config';
 import {TabBottom} from './TabBottom';
 
@@ -28,6 +28,7 @@ export type AppStackParamList = {
   [screens.registerScreen]: undefined;
   [screens.tabBarBottom]: undefined;
   [screens.homeScreen]: undefined;
+  [screens.settingScreen]: undefined;
 };
 
 export type AppStackNavigationProp<RouteName extends keyof AppStackParamList> =
@@ -83,7 +84,6 @@ const useAuthNavigator = () => {
     return (
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name={screens.tabBarBottom} component={TabBottom} />
-        <Stack.Screen name={screens.homeScreen} component={HomeScreen} />
       </Stack.Navigator>
     );
   }

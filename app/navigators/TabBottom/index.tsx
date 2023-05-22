@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {HomeScreen} from '@screens';
+import {HomeScreen, SettinScreen} from '@screens';
 import {responsive} from '@utils';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -19,6 +19,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
  */
 export type MainBottomTabParamList = {
   [screens.homeScreen]: undefined;
+  [screens.settingScreen]: undefined;
 };
 
 export type MainBottomTabNavigationProp<
@@ -63,7 +64,15 @@ export const TabBottom = ({}: any) => {
         component={HomeScreen}
         options={{
           tabBarLabel: screens.homeScreen,
-          tabBarIcon: () => <Text>Icon</Text>,
+          tabBarIcon: () => <Text>Home</Text>,
+        }}
+      />
+      <Tab.Screen
+        name={screens.settingScreen}
+        component={SettinScreen}
+        options={{
+          tabBarLabel: screens.homeScreen,
+          tabBarIcon: () => <Text>Setting</Text>,
         }}
       />
     </Tab.Navigator>
