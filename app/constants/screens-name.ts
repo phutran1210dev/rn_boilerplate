@@ -1,5 +1,5 @@
 export enum screens {
-  tabBarBottom = 'tabBarBottom',
+  tabBarBottom = 'Tab Bottom',
   homeScreen = 'Home Screen',
   loginScreen = 'Login Screen',
   registerScreen = 'Register Screen',
