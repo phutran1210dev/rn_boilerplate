@@ -27,6 +27,7 @@ export type AppStackParamList = {
   [screens.loginScreen]: undefined;
   [screens.registerScreen]: undefined;
   [screens.tabBarBottom]: undefined;
+  [screens.drawer]: undefined;
   [screens.homeScreen]: undefined;
   [screens.settingScreen]: undefined;
 };

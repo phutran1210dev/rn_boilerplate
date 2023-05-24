@@ -18,6 +18,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
  * More info: https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type MainBottomTabParamList = {
+  [screens.drawer]: undefined;
   [screens.homeScreen]: undefined;
   [screens.settingScreen]: undefined;
 };
@@ -51,7 +52,7 @@ export const TabBottom = ({}: any) => {
       backBehavior="history"
       screenOptions={{
         headerShown: false,
-        // tabBarShowLabel: false,
+        tabBarShowLabel: false,
         tabBarStyle: [
           {
             height:
