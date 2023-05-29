@@ -1,5 +1,5 @@
-import {StyleSheet, Text, View, useColorScheme} from 'react-native';
-import React, {ComponentProps, useEffect, useState} from 'react';
+import Config from '@config';
+import {screens} from '@constants';
 import {
   DarkTheme,
   DefaultTheme,
@@ -10,18 +10,18 @@ import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
+import {LoginScreen, RegisterScreen} from '@screens';
+import {navigationRef, saveString, useBackButtonHandler} from '@utils';
+import '@utils/ignoreWarnings';
+import React, {ComponentProps, useEffect, useState} from 'react';
+import {StyleSheet, Text, View, useColorScheme} from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
-import '@utils/ignoreWarnings';
-import {screens} from '@constants';
-import {navigationRef, saveString, useBackButtonHandler} from '@utils';
-import {LoginScreen, RegisterScreen} from '@screens';
-import Config from '@config';
-import {TabBottom} from './TabBottom';
+import {appDrawer} from './Drawer';
 
 export type AppStackParamList = {
   [screens.loginScreen]: undefined;
@@ -84,7 +84,7 @@ const useAuthNavigator = () => {
   if (!false) {
     return (
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name={screens.tabBarBottom} component={TabBottom} />
+        <Stack.Screen name={screens.drawer} component={appDrawer} />
       </Stack.Navigator>
     );
   }

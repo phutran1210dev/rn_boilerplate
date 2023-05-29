@@ -1,3 +1,4 @@
+import {Button, Toast} from '@ant-design/react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AppStackDrawerParamList} from 'app/navigators/Drawer';
 import React from 'react';
@@ -12,6 +13,7 @@ export const HomeScreen = () => {
       <TouchableHighlight onPress={() => navigation.openDrawer()}>
         <Text>Click Me</Text>
       </TouchableHighlight>
+      <Button onPress={() => Toast.info('Mess')}>Hello</Button>
     </View>
   );
 };

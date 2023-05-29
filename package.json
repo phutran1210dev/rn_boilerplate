@@ -30,6 +30,7 @@
     "clean-all": "npx react-native clean-project-auto"
   },
   "dependencies": {
+    "@ant-design/react-native": "^5.0.4",
     "@hookform/resolvers": "^3.1.0",
     "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
@@ -65,6 +66,7 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@ant-design/icons-react-native": "^2.3.2",
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
@@ -77,6 +79,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "babel-jest": "^29.2.1",
+    "babel-plugin-import": "^1.13.6",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.8.0",
