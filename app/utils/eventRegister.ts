@@ -33,7 +33,7 @@ export class EventRegister {
     return !removeError;
   }
 
-  static emitEvent(eventName, data) {
+  static emitEvent(eventName: any, data: any) {
     Object.keys(EventRegister.listeners.refs).forEach(id => {
       if (
         EventRegister.listeners.refs[id] &&

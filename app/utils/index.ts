@@ -3,4 +3,4 @@ export * from './eventRegister';
 export * from './crashReporting';
 export * from './isMounted';
 export * from './navigation-utils';
-export {responsive} from './responsive';
+export {Responsive} from './responsive';

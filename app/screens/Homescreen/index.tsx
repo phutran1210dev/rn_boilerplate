@@ -1,19 +1,21 @@
-import {Button, Toast} from '@ant-design/react-native';
-import {useNavigation} from '@react-navigation/native';
-import {AppStackDrawerParamList} from 'app/navigators/Drawer';
+import { Button, Toast } from '@ant-design/react-native';
+import { useNavigation } from '@react-navigation/native';
+import { AppStackDrawerParamList } from 'app/navigators/Drawer';
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {TouchableHighlight} from 'react-native-gesture-handler';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, View } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export const HomeScreen = () => {
   const navigation = useNavigation<AppStackDrawerParamList>();
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
       <TouchableHighlight onPress={() => navigation.openDrawer()}>
         <Text>Click Me</Text>
       </TouchableHighlight>
-      <Button onPress={() => Toast.info('Mess')}>Hello</Button>
+      <Button onPress={() => Toast.info(t('login.sign_in'))}>Press me</Button>
     </View>
   );
 };

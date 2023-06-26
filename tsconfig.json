@@ -10,7 +10,7 @@
       "es6",
       "dom"
     ],
-    "module": "es2015",
+    "module": "esnext",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noImplicitReturns": true,

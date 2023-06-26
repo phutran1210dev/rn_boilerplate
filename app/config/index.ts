@@ -1,6 +1,6 @@
 /**
  * This file imports configuration objects from either the config.dev.js file
- * or the config.prod.js file depending on whether we are in __DEV__ or not.
+ * or the config.prod.ts file depending on whether we are in __DEV__ or not.
  *
  * Note that we do not gitignore these files. Unlike on web servers, just because
  * these are not checked into your repo doesn't mean that they are secure.

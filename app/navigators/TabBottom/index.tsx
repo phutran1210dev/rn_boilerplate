@@ -8,7 +8,7 @@ import {
 import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {HomeScreen, SettinScreen} from '@screens';
-import {responsive} from '@utils';
+import {Responsive} from '@utils';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -56,7 +56,7 @@ export const TabBottom = ({}: any) => {
         tabBarStyle: [
           {
             height:
-              insets.bottom > 0 ? responsive.height(80) : responsive.height(70),
+              insets.bottom > 0 ? Responsive.height(80) : Responsive.height(70),
           },
         ],
       }}>
