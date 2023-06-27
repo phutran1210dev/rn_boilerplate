@@ -8,6 +8,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
+import com.lugg.RNCConfig.RNCConfigPackage; // ==> config .env android
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -25,6 +26,17 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+
+          // Remove the existing entry for RNCConfigPackage if present
+          for (ReactPackage pkg : packages) {
+            if (pkg instanceof RNCConfigPackage) {
+              packages.remove(pkg);
+              break;
+            }
+          }
+
+          // Add RNCConfigPackage
+          packages.add(new RNCConfigPackage());
           return packages;
         }
 

@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
-#import "RNBootSplash.h" // <- add the header import
-
+#import "RNBootSplash.h" // ==> config Splash
+#import "RNCConfig.h"    // ==> config .env
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -13,6 +13,13 @@
   self.initialProps = @{};
 
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:self.window.rootViewController.view]; // <- initialization using the storyboard file name
+
+  // Access individual keys
+  NSString *apiUrl = [RNCConfig envFor:@"API_URL"];
+
+  // Access the whole config
+  NSDictionary *config = [RNCConfig env];
+
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 

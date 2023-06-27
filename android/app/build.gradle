@@ -192,6 +192,7 @@ dependencies {
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation("androidx.core:core-splashscreen:1.0.0") // Add this line
+    implementation project(':react-native-config') // ==> config env android
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
@@ -204,6 +205,9 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // implementation project(':react-native-config')
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

@@ -4,11 +4,13 @@ import { AppStackDrawerParamList } from 'app/navigators/Drawer';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
+import Config from 'react-native-config';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export const HomeScreen = () => {
   const navigation = useNavigation<AppStackDrawerParamList>();
   const { t } = useTranslation();
+  console.log('<===== ENV =====>', Config.API_URL)
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
