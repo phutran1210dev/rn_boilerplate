@@ -5,6 +5,7 @@
  *
  * https://reactnative.dev/docs/security#storing-sensitive-info
  */
+import Config from 'react-native-config';
 export default {
-  API_URL: '',
+  API_URL: Config.API_URL,
 };

@@ -3,13 +3,17 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 /**
  * Loads a string from storage.
  *
- * @param key The key to fetch.
+ * @param {string} key - The key to fetch.
+ * @returns {Promise<string | null>} A promise that resolves to the fetched string or null if an error occurs.
  */
-export async function loadString(key: string): Promise<string | null> {
+export async function loadStringFromStorage(
+  key: string,
+): Promise<string | null> {
   try {
-    return await AsyncStorage.getItem(key);
-  } catch {
-    // not sure why this would fail... even reading the RN docs I'm unclear
+    const value = await AsyncStorage.getItem(key);
+    return value;
+  } catch (error) {
+    // Handle error
     return null;
   }
 }
@@ -17,28 +21,36 @@ export async function loadString(key: string): Promise<string | null> {
 /**
  * Saves a string to storage.
  *
- * @param key The key to fetch.
- * @param value The value to store.
+ * @param {string} key - The key to store.
+ * @param {string} value - The value to store.
+ * @returns {Promise<boolean>} A promise that resolves to true if the string is saved successfully, or false if an error occurs.
  */
-export async function saveString(key: string, value: string): Promise<boolean> {
+export async function saveStringToStorage(
+  key: string,
+  value: string,
+): Promise<boolean> {
   try {
     await AsyncStorage.setItem(key, value);
     return true;
-  } catch {
+  } catch (error) {
+    // Handle error
     return false;
   }
 }
 
 /**
- * Loads something from storage and runs it thru JSON.parse.
+ * Loads and parses an object from storage.
  *
- * @param key The key to fetch.
+ * @param {string} key - The key to fetch.
+ * @returns {Promise<any | null>} A promise that resolves to the parsed object or null if an error occurs.
  */
-export async function load(key: string | null): Promise<any | null> {
+export async function loadObjectFromStorage(key: string): Promise<any | null> {
   try {
-    const almostThere = await AsyncStorage.getItem(key);
-    return JSON.parse(almostThere);
-  } catch {
+    const value = await AsyncStorage.getItem(key);
+    const parsedValue = JSON.parse(value);
+    return parsedValue;
+  } catch (error) {
+    // Handle error
     return null;
   }
 }
@@ -46,34 +58,46 @@ export async function load(key: string | null): Promise<any | null> {
 /**
  * Saves an object to storage.
  *
- * @param key The key to fetch.
- * @param value The value to store.
+ * @param {string} key - The key to store.
+ * @param {any} value - The value to store.
+ * @returns {Promise<boolean>} A promise that resolves to true if the object is saved successfully, or false if an error occurs.
  */
-export async function save(key: string, value: any): Promise<boolean> {
+export async function saveObjectToStorage(
+  key: string,
+  value: any,
+): Promise<boolean> {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
     return true;
-  } catch {
+  } catch (error) {
+    // Handle error
     return false;
   }
 }
 
 /**
- * Removes something from storage.
+ * Removes an item from storage.
  *
- * @param key The key to kill.
+ * @param {string} key - The key to remove.
+ * @returns {Promise<void>} A promise that resolves when the item is removed or if an error occurs.
  */
-export async function remove(key: string): Promise<void> {
+export async function removeItemFromStorage(key: string): Promise<void> {
   try {
     await AsyncStorage.removeItem(key);
-  } catch {}
+  } catch (error) {
+    // Handle error
+  }
 }
 
 /**
- * Burn it all to the ground.
+ * Clears all items from storage.
+ *
+ * @returns {Promise<void>} A promise that resolves when all items are cleared or if an error occurs.
  */
-export async function clear(): Promise<void> {
+export async function clearStorage(): Promise<void> {
   try {
     await AsyncStorage.clear();
-  } catch {}
+  } catch (error) {
+    // Handle error
+  }
 }

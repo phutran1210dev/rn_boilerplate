@@ -11,7 +11,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import { LoginScreen, RegisterScreen } from '@screens';
-import { navigationRef, saveString, useBackButtonHandler } from '@utils';
+import { navigationRef, saveStringToStorage, useBackButtonHandler } from '@utils';
 import '@utils/ignoreWarnings';
 import React, { ComponentProps, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, useColorScheme } from 'react-native';
@@ -21,9 +21,10 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context';
-import { appDrawer } from './Drawer';
+import { AppDrawer } from './Drawer';
 import { I18nextProvider } from 'react-i18next';
-import i18n from '../i18n'
+import i18n from '@i18n';
+
 
 export type AppStackParamList = {
   [screens.loginScreen]: undefined;
@@ -59,7 +60,7 @@ const useAuthNavigator = () => {
     const bootstrapAsync = async () => {
       try {
         await new Promise(resolve => setTimeout(resolve, 2000));
-        const access_token = await saveString('access_token', 'Secret');
+        const access_token = await saveStringToStorage('access_token', 'Secret');
         if (access_token) {
           setLoading(false);
         } else {
@@ -86,7 +87,7 @@ const useAuthNavigator = () => {
   if (!false) {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name={screens.drawer} component={appDrawer} />
+        <Stack.Screen name={screens.drawer} component={AppDrawer} />
       </Stack.Navigator>
     );
   }

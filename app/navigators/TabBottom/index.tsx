@@ -1,16 +1,16 @@
-import {Text} from 'react-native';
-import {screens} from '@constants';
-import {AppStackParamList} from '@navigators';
+import { Text } from 'react-native';
+import { screens } from '@constants';
+import { AppStackParamList } from '@navigators';
 import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {HomeScreen, SettinScreen} from '@screens';
-import {Responsive} from '@utils';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { HomeScreen, SettinScreen } from '@screens';
+import { Responsive } from '@utils';
 import React from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 /**
  * Helper for automatically generating navigation prop types for each route.
@@ -43,7 +43,7 @@ export type MainBottomTabRoutes = {
 
 const Tab = createBottomTabNavigator<MainBottomTabParamList>();
 
-export const TabBottom = ({}: any) => {
+export const TabBottom = ({ }: any) => {
   const insets = useSafeAreaInsets();
 
   return (

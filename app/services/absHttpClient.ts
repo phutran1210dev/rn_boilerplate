@@ -2,7 +2,6 @@ import Axios from 'axios';
 import {get} from 'lodash';
 import {getDeviceToken} from 'react-native-device-info';
 import Config from 'react-native-config';
-// import store from '@store';
 
 /**
  * Interface for the configuration parameters.
@@ -14,88 +13,75 @@ interface ConfigParams {
 /**
  * The base URL for the Axios instance.
  */
-const API_URL = Config.API_BASE_URL;
+export const API_URL = Config.API_BASE_URL;
 
 /**
- * Create an instance of Axios with default configuration.
+ * Abstract class for making HTTP requests using Axios.
  */
-const AxiosInstance = Axios.create({
-  baseURL: API_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+abstract class HttpService {
+  protected axiosInstance = Axios.create({
+    baseURL: API_URL,
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
-/**
- * Add an interceptor for the request.
- */
-AxiosInstance.interceptors.request.use(
-  (config: any) => {
-    // const {access_token} = store.getState(); // Update this to retrieve the access token from the store
-    // config.headers['Authorization'] = `Bearer ${access_token}`;
-    return config;
-  },
-  (error: any) => {
-    Promise.reject(error.response || error.request || error.message);
-  },
-);
-
-/**
- * Add an interceptor for the response.
- */
-AxiosInstance.interceptors.response.use(
-  (response: any) => {
-    return response;
-  },
-  (error: any) => {
-    return Promise.reject(error.response);
-  },
-);
-
-/**
- * Utility functions for making HTTP requests.
- */
-const Http = {
-  /**
-   * Set the authorization header for the Axios instance.
-   * @param access_token The access token to be set in the header.
-   */
-  setAuthorizationHeader(access_token: string) {
-    AxiosInstance.defaults.headers.Authorization = `Bearer ${access_token}`;
-  },
+  constructor() {
+    this.setupInterceptors();
+  }
 
   /**
-   * Set the device token as a parameter in the Axios instance.
+   * Set up request and response interceptors.
    */
-  setDeviceTokenParam() {
-    AxiosInstance.defaults.params = {
+  protected setupInterceptors(): void {
+    this.axiosInstance.interceptors.request.use(
+      config => {
+        this.addAuthorizationHeader(config);
+        return config;
+      },
+      error => {
+        return Promise.reject(error.response || error.request || error.message);
+      },
+    );
+
+    this.axiosInstance.interceptors.response.use(
+      response => {
+        return response;
+      },
+      error => {
+        return Promise.reject(error.response);
+      },
+    );
+  }
+
+  /**
+   * Add the authorization header to the request config.
+   * @param config The request configuration.
+   */
+  protected abstract addAuthorizationHeader(config: any): void;
+
+  /**
+   * Set the device token as a parameter in the request config.
+   */
+  protected setDeviceTokenParam(): void {
+    this.axiosInstance.defaults.params = {
       device_token: getDeviceToken(),
     };
-  },
-
-  /**
-   * Set the user ID as a parameter in the Axios instance.
-   * @param userId The user ID to be set as a parameter.
-   */
-  setUserIdAfterLogin(userId: string) {
-    AxiosInstance.defaults.params = {
-      user_id: userId,
-    };
-  },
+  }
 
   /**
    * Send a custom request using the Axios instance.
    * @param config The configuration parameters for the request.
    * @returns A promise that resolves to the response.
    */
-  request(config: ConfigParams) {
+  protected request(config: ConfigParams) {
     config.params = {
       ...config.params,
     };
 
-    return AxiosInstance.request(config);
-  },
+    return this.axiosInstance.request(config);
+  }
 
   /**
    * Send a GET request using the Axios instance.
@@ -103,25 +89,41 @@ const Http = {
    * @param config The configuration parameters for the request.
    * @returns A promise that resolves to the response.
    */
-  get(url: string, config?: ConfigParams) {
+  protected get(url: string, config?: ConfigParams) {
     if (config) {
       config.params = {
         ...config.params,
       };
     }
 
-    return AxiosInstance.get(url, config);
-  },
+    return this.axiosInstance.get(url, config);
+  }
 
   // Other HTTP methods...
-};
+}
+
+/**
+ * Utility class for making HTTP requests.
+ */
+class Http extends HttpService {
+  /**
+   * Add the authorization header to the request config.
+   * @param config The request configuration.
+   */
+  protected addAuthorizationHeader(config: any): void {
+    // const { access_token } = store.getState(); // Update this to retrieve the access token from the store
+    // config.headers['Authorization'] = `Bearer ${access_token}`;
+  }
+
+  // Additional utility methods...
+}
 
 /**
  * Handle the Axios service call and return a promise.
  * @param service The Axios service function to be called.
  * @returns A promise that resolves to the response or rejects with an error.
  */
-export const axiosHandler = (service: any) => {
+export const axiosHandler = (service: any): Promise<any> => {
   return new Promise<any>(async (resolve, reject) => {
     try {
       const response = await service();

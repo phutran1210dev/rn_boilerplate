@@ -3,21 +3,25 @@ import {
   PartialState,
   createNavigationContainerRef,
 } from '@react-navigation/native';
-import {useEffect, useRef, useState, useCallback} from 'react';
-import {BackHandler, Platform} from 'react-native';
-import {PersistNavigationConfig} from '../config/config.base';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { BackHandler, Platform } from 'react-native';
+import { PersistNavigationConfig } from '../config/config.base';
 import Config from '../config';
-import {useIsMounted} from '../utils';
+import { useIsMounted } from '@hooks';
+
 
 export const navigationRef = createNavigationContainerRef();
 
 /**
  * Gets the current screen from any navigation state.
+ *
+ * @param {NavigationState | PartialState<NavigationState>} state - The navigation state object.
+ * @returns {string} The name of the active route.
  */
 export function getActiveRouteName(
   state: NavigationState | PartialState<NavigationState>,
 ): string {
-  const {routes, index} = state;
+  const { routes, index } = state;
   const route = routes[index];
 
   // Found the active route -- return the name
@@ -32,6 +36,8 @@ export function getActiveRouteName(
 /**
  * Hook that handles Android back button presses and forwards those on to
  * the navigation or allows exiting the app.
+ *
+ * @param {Function} canExit - A function that determines if the app can be exited.
  */
 export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
   const canExitRef = useRef(canExit);
@@ -73,6 +79,9 @@ export function useBackButtonHandler(canExit: (routeName: string) => boolean) {
 /**
  * This helper function will determine whether we should enable navigation persistence
  * based on a config setting and the __DEV__ environment (dev or prod).
+ *
+ * @param {PersistNavigationConfig} persistNavigation - The configuration for navigation persistence.
+ * @returns {boolean} True if navigation persistence should be enabled, false otherwise.
  */
 function shouldEnableNavigationPersistence(
   persistNavigation: PersistNavigationConfig,
@@ -92,8 +101,11 @@ function shouldEnableNavigationPersistence(
 
 /**
  * Custom hook for persisting navigation state.
+ *
+ * @param {any} storage - The storage object to save and load navigation state.
+ * @param {string} persistenceKey - The key to store and retrieve the navigation state from storage.
+ * @returns {object} Object containing the necessary functions and state for navigation persistence.
  */
-
 export function useNavigationPersistence(storage: any, persistenceKey: string) {
   const [initialNavigationState, setInitialNavigationState] = useState();
   const isMounted = useIsMounted();
@@ -105,6 +117,11 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
 
   const routeNameRef = useRef<string | undefined>();
 
+  /**
+   * Callback function to be called when the navigation state changes.
+   *
+   * @param {NavigationState} state - The new navigation state.
+   */
   const onNavigationStateChange = (state: NavigationState) => {
     const previousRouteName = routeNameRef.current;
     const currentRouteName = getActiveRouteName(state);
@@ -120,6 +137,9 @@ export function useNavigationPersistence(storage: any, persistenceKey: string) {
     storage.save(persistenceKey, state);
   };
 
+  /**
+   * Function to restore the navigation state from storage.
+   */
   const restoreState = useCallback(async () => {
     try {
       const state = await storage.load(persistenceKey);

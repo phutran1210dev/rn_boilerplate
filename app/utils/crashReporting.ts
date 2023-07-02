@@ -42,6 +42,9 @@ export enum ErrorType {
 
 /**
  * Manually report a handled error.
+ *
+ * @param {any} error - The error object to report.
+ * @param {ErrorType} type - The type of error (optional). Defaults to ErrorType.FATAL.
  */
 export const reportCrash = (error: any, type: ErrorType = ErrorType.FATAL) => {
   if (__DEV__) {

@@ -1,10 +1,10 @@
-import loginEN from './en/login.json'
-import loginZH from './zh/login.json'
+import loginEN from './en/login.json';
+import loginZH from './zh/login.json';
 
 const en = {
-  login: loginEN
-}
+  login: loginEN,
+};
 
-const zh = { login: loginZH }
+const zh = {login: loginZH};
 
-export { en, zh }
+export {en, zh};

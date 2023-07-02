@@ -1,3 +1,4 @@
+import React from 'react';
 import {screens} from '@constants';
 import {
   createDrawerNavigator,
@@ -6,7 +7,6 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import {Notification, Profile} from '@screens';
-import React from 'react';
 import {Text, View} from 'react-native';
 import {TabBottom} from '../TabBottom';
 
@@ -37,7 +37,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
   );
 };
 
-export const appDrawer = () => {
+export const AppDrawer = () => {
   return (
     <Drawer.Navigator
       initialRouteName={screens.tabBarBottom}

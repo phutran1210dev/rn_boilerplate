@@ -1,19 +1,24 @@
-import {configureStore} from '@reduxjs/toolkit';
-import thunk, {ThunkDispatch} from 'redux-thunk';
-import rootReducer, {RootState} from './rootReducer';
+import { configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import { ThunkDispatch } from 'redux-thunk';
+import rootReducer, { RootState } from './rootReducer';
 
-const middlewares = [thunk];
-
-if (process.env.NODE_ENV === 'development') {
-  middlewares.push(thunk);
-}
-
+/**
+ * The Redux store configuration.
+ */
 const store = configureStore({
   reducer: rootReducer,
-  middleware: middlewares,
+  middleware: middlewares => middlewares().concat([logger]),
 });
 
+/**
+ * The type for the dispatch function used in thunk actions.
+ */
 export type AppThunkDispatch = ThunkDispatch<RootState, unknown, any>;
+
+/**
+ * The application store type, which includes the dispatch function.
+ */
 export type AppStore = Omit<typeof store, 'dispatch'> & {
   dispatch: AppThunkDispatch;
 };

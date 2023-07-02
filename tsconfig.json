@@ -22,16 +22,20 @@
     "target": "esnext",
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "resolveJsonModule": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@assets": ["./assets"],
       "@components": ["./app/components"],
-      "@screens": ["./app/screens"],
-      "@utils": ["./app/utils"],
-      "@constants": ["./app/constants"],
       "@config": ["./app/config"],
+      "@constants": ["./app/constants"],
+      "@hooks": ["./app/hooks"],
+      "@i18n": ["./app/i18n"],
+      "@navigators": ["./app/navigators"],
+      "@provider": ["./app/provider"],
+      "@screens": ["./app/screens"],
+      "@services": ["./app/services"],
       "@store": ["./app/store"],
-      "@navigators": ["./app/navigators"]
+      "@utils": ["./app/utils"],
     },
   },
   "types": [
@@ -41,12 +45,7 @@
     "node_modules"
   ],
   "include": [
-    "src/**/*", // include all files in the src directory
-    "index.js",
-    "App.js",
-    "app/**/*.ts",
-    "app/**/*.tsx",
-    "test",
+    "app/**/*", // include all files in the src directory
     "types/declarations.d.ts"
   ],
 }
