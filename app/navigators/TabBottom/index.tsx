@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { HomeScreen, SettinScreen } from '@screens';
+import { homeScreen, SettinScreen } from '@screens';
 import { Responsive } from '@utils';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -62,7 +62,7 @@ export const TabBottom = ({ }: any) => {
       }}>
       <Tab.Screen
         name={screens.homeScreen}
-        component={HomeScreen}
+        component={homeScreen}
         options={{
           tabBarLabel: screens.homeScreen,
           tabBarIcon: () => <Text>Home</Text>,

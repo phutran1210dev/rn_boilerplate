@@ -21,12 +21,6 @@
           "@utils": "./app/utils"
         }
       }
-    ],
-    [
-      "import",
-      {
-        "libraryName": "@ant-design/react-native"
-      }
     ]
   ]
 }

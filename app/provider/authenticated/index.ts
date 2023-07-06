@@ -4,7 +4,7 @@ import {loadObjectFromStorage} from '@utils';
 /**
  * The Auth class provides methods for initializing user information and handling authentication-related tasks.
  */
-export abstract class Auth {
+export abstract class AuthProvider {
   private static dispatch = store.dispatch;
 
   /**

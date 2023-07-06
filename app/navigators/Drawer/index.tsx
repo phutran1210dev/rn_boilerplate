@@ -1,14 +1,14 @@
+import { screens } from '@constants';
 import React from 'react';
-import {screens} from '@constants';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {Notification, Profile} from '@screens';
-import {Text, View} from 'react-native';
-import {TabBottom} from '../TabBottom';
+import { Notification, Profile } from '@screens';
+import { Text, View } from 'react-native';
+import { TabBottom } from '../TabBottom';
 
 export type AppStackDrawerParamList = {
   openDrawer(): unknown;
@@ -22,7 +22,7 @@ const Drawer = createDrawerNavigator<AppStackDrawerParamList>();
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
   return (
     <DrawerContentScrollView {...props}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Text>Custom Header</Text>
         <DrawerItem
           label="Profile"
@@ -45,7 +45,8 @@ export const AppDrawer = () => {
       screenOptions={{
         headerShown: false,
       }}
-      drawerContent={props => <CustomDrawerContent {...props} />}>
+      drawerContent={props => <CustomDrawerContent {...props} />}
+    >
       <Drawer.Screen name={screens.tabBarBottom} component={TabBottom} />
       <Drawer.Screen name={screens.profileScreen} component={Profile} />
       <Drawer.Screen name={screens.notification} component={Notification} />

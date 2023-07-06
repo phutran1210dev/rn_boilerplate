@@ -1,4 +1,5 @@
 import Config from '@config';
+import React, { ComponentProps, useEffect, useState } from 'react';
 import { screens } from '@constants';
 import {
   DarkTheme,
@@ -13,7 +14,6 @@ import {
 import { LoginScreen, RegisterScreen } from '@screens';
 import { navigationRef, saveStringToStorage, useBackButtonHandler } from '@utils';
 import '@utils/ignoreWarnings';
-import React, { ComponentProps, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, useColorScheme } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
