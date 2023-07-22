@@ -1,5 +1,5 @@
-import { Responsive } from '@utils';
-import React, { FC, useLayoutEffect } from 'react';
+import {Responsive} from '@utils';
+import React, {FC, useLayoutEffect} from 'react';
 import {
   Image,
   ImageStyle,
@@ -10,7 +10,6 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-
 
 interface IconProps extends TouchableOpacityProps {
   icon: string | number;
@@ -30,7 +29,7 @@ type WrapperProps = TouchableOpacityProps & {
   };
 };
 
-const Wrapper: FC<WrapperProps> = ({ isPressable, ...props }) =>
+const Wrapper: FC<WrapperProps> = ({isPressable, ...props}) =>
   isPressable ? (
     <TouchableOpacity accessibilityRole="imagebutton" {...props} />
   ) : (
@@ -60,19 +59,18 @@ export const Icon: FC<IconProps> = ({
     <Wrapper
       isPressable={!!wrapperProps.onPress}
       style={$containerStyleOverride}
-      {...wrapperProps}
-    >
+      {...wrapperProps}>
       <Image
         style={[
           $imageStyle,
-          color && { tintColor: color },
+          color && {tintColor: color},
           size && {
             width: Responsive.width(size),
             height: Responsive.height(size),
           },
           $imageStyleOverride,
         ]}
-        source={typeof icon === 'string' ? { uri: icon } : icon}
+        source={typeof icon === 'string' ? {uri: icon} : icon}
       />
     </Wrapper>
   );

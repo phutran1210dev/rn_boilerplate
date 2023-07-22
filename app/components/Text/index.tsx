@@ -1,8 +1,13 @@
-import { textColor } from '@constants';
-import { Responsive } from '@utils';
+import {textColor} from '@constants';
+import {Responsive} from '@utils';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { Text as RNText, TextProps as RNTextProps, StyleProp, TextStyle } from 'react-native';
+import {useTranslation} from 'react-i18next';
+import {
+  Text as RNText,
+  TextProps as RNTextProps,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 
 export interface TextProps extends RNTextProps {
   style?: StyleProp<TextStyle>;
@@ -10,8 +15,13 @@ export interface TextProps extends RNTextProps {
   i18nKey?: string;
 }
 
-export const Text: React.FC<TextProps> = ({ style, txtContent, i18nKey, ...props }) => {
-  const { t } = useTranslation();
+export const Text: React.FC<TextProps> = ({
+  style,
+  txtContent,
+  i18nKey,
+  ...props
+}) => {
+  const {t} = useTranslation();
 
   const textDefaultStyle: TextStyle = {
     includeFontPadding: false,

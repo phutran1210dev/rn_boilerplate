@@ -14,7 +14,10 @@ export class EventRegister {
    * @param {Function} callback - The callback function to be called when the event is emitted.
    * @returns {string | false} The ID of the registered event listener or false if the parameters are invalid.
    */
-  static addEventListener(eventName: string, callback: Function): string | false {
+  static addEventListener(
+    eventName: string,
+    callback: Function,
+  ): string | false {
     if (typeof eventName === 'string' && typeof callback === 'function') {
       EventRegister.listeners.count++;
       const eventId = 'l' + EventRegister.listeners.count;

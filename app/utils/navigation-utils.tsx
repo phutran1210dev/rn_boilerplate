@@ -3,12 +3,11 @@ import {
   PartialState,
   createNavigationContainerRef,
 } from '@react-navigation/native';
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { BackHandler, Platform } from 'react-native';
-import { PersistNavigationConfig } from '../config/config.base';
+import {useEffect, useRef, useState, useCallback} from 'react';
+import {BackHandler, Platform} from 'react-native';
+import {PersistNavigationConfig} from '../config/config.base';
 import Config from '../config';
-import { useIsMounted } from '@hooks';
-
+import {useIsMounted} from '@hooks';
 
 export const navigationRef = createNavigationContainerRef();
 
@@ -21,7 +20,7 @@ export const navigationRef = createNavigationContainerRef();
 export function getActiveRouteName(
   state: NavigationState | PartialState<NavigationState>,
 ): string {
-  const { routes, index } = state;
+  const {routes, index} = state;
   const route = routes[index];
 
   // Found the active route -- return the name

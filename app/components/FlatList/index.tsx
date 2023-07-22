@@ -1,6 +1,14 @@
-import { backgroundColor } from '@constants';
+import {backgroundColor} from '@constants';
 import React from 'react';
-import { ActivityIndicator, ListRenderItem, FlatList as RNFlatList, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+import {
+  ActivityIndicator,
+  ListRenderItem,
+  FlatList as RNFlatList,
+  StyleProp,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 /**
  * Props for the FlatList component.
@@ -33,7 +41,10 @@ export function FlatList<T>({
     if (isLoading) {
       return (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="small" color={backgroundColor.backgroundDialog} />
+          <ActivityIndicator
+            size="small"
+            color={backgroundColor.backgroundDialog}
+          />
         </View>
       );
     }

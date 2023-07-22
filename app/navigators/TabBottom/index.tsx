@@ -1,16 +1,16 @@
-import { Text } from 'react-native';
-import { screens } from '@constants';
-import { AppStackParamList } from '@navigators';
+import {Text} from 'react-native';
+import {screens} from '@constants';
+import {AppStackParamList} from '@navigators';
 import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { homeScreen, SettinScreen } from '@screens';
-import { Responsive } from '@utils';
+import {CompositeNavigationProp, RouteProp} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {HomeScreen, SettinScreen} from '@screens';
+import {Responsive} from '@utils';
 import React from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 /**
  * Helper for automatically generating navigation prop types for each route.
@@ -18,9 +18,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
  * More info: https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type MainBottomTabParamList = {
-  [screens.drawer]: undefined;
-  [screens.homeScreen]: undefined;
-  [screens.settingScreen]: undefined;
+  [screens.DrawerLeft]: undefined;
+  [screens.HomeScreen]: undefined;
+  [screens.SettingScreen]: undefined;
 };
 
 export type MainBottomTabNavigationProp<
@@ -43,12 +43,12 @@ export type MainBottomTabRoutes = {
 
 const Tab = createBottomTabNavigator<MainBottomTabParamList>();
 
-export const TabBottom = ({ }: any) => {
+export const TabBottom = ({}: any) => {
   const insets = useSafeAreaInsets();
 
   return (
     <Tab.Navigator
-      initialRouteName={screens.homeScreen}
+      initialRouteName={screens.HomeScreen}
       backBehavior="history"
       screenOptions={{
         headerShown: false,
@@ -61,18 +61,18 @@ export const TabBottom = ({ }: any) => {
         ],
       }}>
       <Tab.Screen
-        name={screens.homeScreen}
-        component={homeScreen}
+        name={screens.HomeScreen}
+        component={HomeScreen}
         options={{
-          tabBarLabel: screens.homeScreen,
+          tabBarLabel: screens.HomeScreen,
           tabBarIcon: () => <Text>Home</Text>,
         }}
       />
       <Tab.Screen
-        name={screens.settingScreen}
+        name={screens.SettingScreen}
         component={SettinScreen}
         options={{
-          tabBarLabel: screens.homeScreen,
+          tabBarLabel: screens.HomeScreen,
           tabBarIcon: () => <Text>Setting</Text>,
         }}
       />

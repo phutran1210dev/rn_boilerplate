@@ -13,7 +13,7 @@ const RN_Boilerplate = ({isHeadless}) => {
 
   return (
     <Provider store={store}>
-        <AppNavigator />
+      <AppNavigator />
     </Provider>
   );
 };

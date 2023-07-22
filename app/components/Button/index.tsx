@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, TouchableOpacity, ViewStyle, ImageStyle, StyleProp } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  ViewStyle,
+  ImageStyle,
+  StyleProp,
+} from 'react-native';
 
 import styles from './styles';
-import { AutoImage, Text } from '@components';
+import {AutoImage, Text} from '@components';
 
 /**
  * The type of button.
@@ -56,9 +62,7 @@ export const Button = <T extends unknown>({
    */
   const renderButtonContent = () => {
     if (icon) {
-      return (
-        <AutoImage source={icon} style={[styles.icon, styleIconButton]} />
-      );
+      return <AutoImage source={icon} style={[styles.icon, styleIconButton]} />;
     }
 
     if (isUnit) {
@@ -76,8 +80,7 @@ export const Button = <T extends unknown>({
           styles.txtNormal,
           stylePrimary && styles.txtPrimary,
           styleTxtButton,
-        ]}
-      >
+        ]}>
         {label}
       </Text>
     );
@@ -93,15 +96,13 @@ export const Button = <T extends unknown>({
             stylePrimary && styles.stylePrimary,
             style,
           ]}
-          onPress={() => onPress?.(undefined as unknown as T)}
-        >
+          onPress={() => onPress?.(undefined as unknown as T)}>
           {renderButtonContent()}
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
           disabled={isDisable}
-          style={[isDisable ? styles.ctnDisable : styles.ctnWhite, style]}
-        >
+          style={[isDisable ? styles.ctnDisable : styles.ctnWhite, style]}>
           <Text style={styles.txtWhite}>{label}</Text>
         </TouchableOpacity>
       )}

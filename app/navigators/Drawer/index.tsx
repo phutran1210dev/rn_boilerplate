@@ -1,20 +1,21 @@
-import { screens } from '@constants';
-import React from 'react';
+import {Text, View} from 'react-native';
+import {screens} from '@constants';
 import {
   createDrawerNavigator,
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import { Notification, Profile } from '@screens';
-import { Text, View } from 'react-native';
-import { TabBottom } from '../TabBottom';
+import {Notification, Profile} from '@screens';
+import React from 'react';
+import {TabBottom} from '../TabBottom';
 
 export type AppStackDrawerParamList = {
+  navigate: any;
   openDrawer(): unknown;
-  [screens.tabBarBottom]: undefined;
-  [screens.profileScreen]: undefined;
-  [screens.notification]: undefined;
+  [screens.TabBarBottom]: undefined;
+  [screens.ProfileScreen]: undefined;
+  [screens.Notification]: undefined;
 };
 
 const Drawer = createDrawerNavigator<AppStackDrawerParamList>();
@@ -22,34 +23,35 @@ const Drawer = createDrawerNavigator<AppStackDrawerParamList>();
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = props => {
   return (
     <DrawerContentScrollView {...props}>
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <Text>Custom Header</Text>
         <DrawerItem
           label="Profile"
-          onPress={() => props.navigation.navigate(screens.profileScreen)}
+          onPress={() => props.navigation.navigate(screens.ProfileScreen)}
         />
         <DrawerItem
           label="Notification"
-          onPress={() => props.navigation.navigate(screens.notification)}
+          onPress={() => props.navigation.navigate(screens.Notification)}
         />
       </View>
     </DrawerContentScrollView>
   );
 };
 
-export const AppDrawer = () => {
+const AppDrawer = () => {
   return (
     <Drawer.Navigator
-      initialRouteName={screens.tabBarBottom}
+      initialRouteName={screens.TabBarBottom}
       backBehavior="history"
       screenOptions={{
         headerShown: false,
       }}
-      drawerContent={props => <CustomDrawerContent {...props} />}
-    >
-      <Drawer.Screen name={screens.tabBarBottom} component={TabBottom} />
-      <Drawer.Screen name={screens.profileScreen} component={Profile} />
-      <Drawer.Screen name={screens.notification} component={Notification} />
+      drawerContent={props => <CustomDrawerContent {...props} />}>
+      <Drawer.Screen name={screens.TabBarBottom} component={TabBottom} />
+      <Drawer.Screen name={screens.ProfileScreen} component={Profile} />
+      <Drawer.Screen name={screens.Notification} component={Notification} />
     </Drawer.Navigator>
   );
 };
+
+export {AppDrawer};

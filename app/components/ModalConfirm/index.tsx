@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { Responsive } from '@utils';
-import { backgroundColor, textColor } from '@constants';
-import { Text, Button, PopupView } from '@components';
+import React, {FC} from 'react';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
+import {Responsive} from '@utils';
+import {backgroundColor, textColor} from '@constants';
+import {Text, Button, PopupView} from '@components';
 
 /**
  * Props for the CModalConfirm component
@@ -33,8 +33,7 @@ export const ModalConfirm: FC<PopupProps> = ({
     <PopupView
       visible={visible}
       style={[styles.modalContainer, style]}
-      styleContent={[styleContent]}
-    >
+      styleContent={[styleContent]}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.buttonContainer}>
         <Button
@@ -42,7 +41,7 @@ export const ModalConfirm: FC<PopupProps> = ({
           onPress={onCancel}
           styleWrapper={styles.buttonWrapper}
           styleTxtButton={styles.button}
-          style={{ height: Responsive.height(32) }}
+          style={{height: Responsive.height(32)}}
         />
         {isOnOk && (
           <Button
@@ -50,10 +49,10 @@ export const ModalConfirm: FC<PopupProps> = ({
             onPress={onOk}
             styleWrapper={[
               styles.buttonWrapper,
-              { marginLeft: Responsive.width(16) },
+              {marginLeft: Responsive.width(16)},
             ]}
             styleTxtButton={styles.button}
-            style={{ height: Responsive.height(32) }}
+            style={{height: Responsive.height(32)}}
           />
         )}
       </View>

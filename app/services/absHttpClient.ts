@@ -108,9 +108,9 @@ abstract class HttpService {
 class Http extends HttpService {
   /**
    * Add the authorization header to the request config.
-   * @param config The request configuration.
+   * @param _config The request configuration.
    */
-  protected addAuthorizationHeader(config: any): void {
+  protected addAuthorizationHeader(_config: any): void {
     // const { access_token } = store.getState(); // Update this to retrieve the access token from the store
     // config.headers['Authorization'] = `Bearer ${access_token}`;
   }

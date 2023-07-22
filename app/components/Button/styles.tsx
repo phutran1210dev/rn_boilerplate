@@ -1,6 +1,6 @@
-import { backgroundColor, borderColor, textColor, pastelColor } from '@constants';
-import { Responsive } from '@utils';
-import { StyleSheet } from 'react-native';
+import {backgroundColor, borderColor, textColor, pastelColor} from '@constants';
+import {Responsive} from '@utils';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {

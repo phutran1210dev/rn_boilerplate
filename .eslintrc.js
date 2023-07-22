@@ -5,13 +5,16 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier', 'react'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
+    'react-native/no-inline-styles': 'off',
+    'no-shadow': 'off',
+    'no-undef': 'off',
+    'no-catch-shadow': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'react/no-unstable-nested-components': [
-      'warn',
+      'error',
       {
-        allowAsProps: true | false,
-        customValidators:
-          [] /* optional array of validators used for propTypes validation */,
+        allowAsProps: true,
+        customValidators: [],
       },
     ],
   },
